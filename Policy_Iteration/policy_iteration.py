@@ -39,7 +39,7 @@ def policy_evaluation(no_states, no_actions, transition_matrix, initail_policy ,
 
 
 #Estimate the MDP for a certian iterations and then improves the policy once
-def improve_policy(no_states, no_actions, transition_matrix, policy , time_discount, reward_function, no_iteration):
+def policy_iterate(no_states, no_actions, transition_matrix, policy , time_discount, reward_function, no_iteration):
 
     transition_matrix = tf.Variable(transition_matrix, expected_shape= (no_actions, no_states, no_states))
     action_value_function = policy_evaluation(no_states, no_actions, transition_matrix, policy , time_discount, reward_function, no_iteration)
@@ -105,7 +105,7 @@ B = np.array([[V[i][0] for i in range(j, j+5)] for j in range(0,25,5)])
 print(B)
 '''
 for i in range(2):
-    policy = improve_policy(25, 4, x, policy, 1, reward, 10)
+    policy = policy_iterate(25, 4, x, policy, 1, reward, 10)
     P = policy[:,0,:]
     B = np.array([[np.argmax(P[i]) for i in range(j, j+5)] for j in range(0,25,5)])
 
